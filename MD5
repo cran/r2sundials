@@ -1,10 +1,10 @@
-f3ce64c6c7ff1bcf87803d2322ba6d4b *DESCRIPTION
+a6a6cfaca40f711274ba48453ddecbca *DESCRIPTION
 34bb78fa63ba6a742a8074a057917516 *NAMESPACE
-ddd4544fb9b1050c18b736a03332af4b *NEWS
-4be5f3b2c4e38dff0eed997eb4259df9 *R/RcppExports.R
+bb4c0c1425936e10cb224fce12dbebf7 *NEWS
+06816d3db0b564315223cfdec14b59a3 *R/RcppExports.R
 f2abefc037666a3b13438a1564d356e1 *R/package.R
 23e76b04be2150afd6b225f05fe50112 *R/zzz.R
-1b4979eedee22d2d6d996825d1d49bc3 *build/partial.rdb
+606748ef210b3c830d4d43043a334c32 *build/partial.rdb
 81f9c54b32fbc7115b6d02e33d8ba46f *cleanup
 662fb23969e114d426f581dd7374f0ad *inst/CITATION
 b629dca4d9c9740fc0f006d100f76c31 *inst/COPYRIGHTS
@@ -17,7 +17,7 @@ b5d265ac660ac706f02ef14d86fb47b9 *inst/include/cvodes/cvodes_diag.h
 33f2f6513b2438064eda5c8d49233c51 *inst/include/cvodes/cvodes_ls.h
 60574a3ce67de9990213449b753a2445 *inst/include/cvodes/cvodes_spils.h
 182e55deefbd27b0052ed7d2d1ab00bf *inst/include/nvector/nvector_serial.h
-7805d7bae5c6e8f73063237aa27146a9 *inst/include/r2sundials.h
+b34d77466fc1074fb41db1f775c5e594 *inst/include/r2sundials.h
 403467bbf1d07ad3d924c5f0af325893 *inst/include/sundials/sundials_band.h
 c0a9afffba4316af0cf547b26f34ba95 *inst/include/sundials/sundials_config.h
 4a605f06d744d4e734e710548b4b81ba *inst/include/sundials/sundials_config.in
@@ -57,10 +57,10 @@ aea38932f10969291acb2861338b23b1 *inst/include/sunmatrix/sunmatrix_slunrloc.h
 50a0ef5d587844c5bf65694b97739f41 *inst/include/sunnonlinsol/sunnonlinsol_fixedpoint.h
 ead0df4433f8688193f5ecb82f268af8 *inst/include/sunnonlinsol/sunnonlinsol_newton.h
 fccc40656e4a0b3b857c960c61cce80d *inst/include/sunnonlinsol/sunnonlinsol_petscsnes.h
-1afc0dce671d5946d0b5b4901e65dc9a *inst/unitTests/runit.r2cvodes.R
+11178daf7f396a8749462e2461f4e4ff *inst/unitTests/runit.r2cvodes.R
 18182c1537fde6e5947a53ecb5c3d049 *man/get_cnst.Rd
-223c7cd08a4d027bed813b0e4c82a2d9 *man/r2cvodes.Rd
-d758afcc2e9fa4086679c00e465a44dc *man/r2sundials-package.Rd
+0454d97f60c6fa40c2e19d474ca34837 *man/r2cvodes.Rd
+f85a7794cbad8e52ace7d676528583ef *man/r2sundials-package.Rd
 beb8ea8e81c3c92da16af7eeb750d817 *src/Makevars
 52bca2725fb70ade116591766c440de0 *src/RcppExports.cpp
 bb1a34994e56bfa40202c6c2eab17fd6 *src/lib/cvodes/LICENSE
@@ -142,6 +142,6 @@ a3799f755a3a0f69d0d1d9035baf207e *src/lib/sunmatrix/sparse/fsunmatrix_sparse.c
 db903c2e1252893ca96eed15c095f41c *src/lib/sunnonlinsol/newton/fsunnonlinsol_newton.c
 737de6d4d62b5dfb9bbaa950c5e97cf8 *src/lib/sunnonlinsol/newton/fsunnonlinsol_newton.h
 91d011777e0c12a80ecd72cce3ca56bd *src/lib/sunnonlinsol/newton/sunnonlinsol_newton.c
-16e9bda5ef579020c83140f61b1ab807 *src/r2sundials.cpp
-4002363f0758c2f3d50c1839a3fb7fdb *src/sunlinsol_rmumps.cpp
+436d519be84e36f70451c6aa272aefc5 *src/r2sundials.cpp
+b703bd4a4dc36477e6b734101707fad2 *src/sunlinsol_rmumps.cpp
 9d5347458c42ff1c5ff6a47d29beda40 *tests/RUnit.R
