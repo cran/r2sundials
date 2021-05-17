@@ -1,3 +1,9 @@
+Version 5.0.0-10
+===============
+
+* 2021-05-17
+ - fixed errors form "-fno-common" compile option relative to global variables
+
 Version 5.0.0-9
 ===============
 
