@@ -3,7 +3,7 @@
  * Based on codes <solver>_lapack.c by: Radu Serban @ LLNL
  * -----------------------------------------------------------------
  * SUNDIALS Copyright Start
- * Copyright (c) 2002-2019, Lawrence Livermore National Security
+ * Copyright (c) 2002-2022, Lawrence Livermore National Security
  * and Southern Methodist University.
  * All rights reserved.
  *
@@ -22,6 +22,19 @@
 #include <sunlinsol/sunlinsol_lapackband.h>
 #include <sundials/sundials_math.h>
 
+#include "sundials_lapack_defs.h"
+
+/* Interfaces to match 'realtype' with the correct LAPACK functions */
+#if defined(SUNDIALS_DOUBLE_PRECISION)
+#define xgbtrf_f77    dgbtrf_f77
+#define xgbtrs_f77    dgbtrs_f77
+#elif defined(SUNDIALS_SINGLE_PRECISION)
+#define xgbtrf_f77    sgbtrf_f77
+#define xgbtrs_f77    sgbtrs_f77
+#else
+#error  Incompatible realtype for LAPACK; disable LAPACK and rebuild
+#endif
+
 #define ZERO  RCONST(0.0)
 #define ONE   RCONST(1.0)
 
@@ -37,15 +50,6 @@
 
 /*
  * -----------------------------------------------------------------
- * deprecated wrapper functions
- * -----------------------------------------------------------------
- */
-
-SUNLinearSolver SUNLapackBand(N_Vector y, SUNMatrix A)
-{ return(SUNLinSol_LapackBand(y, A)); }
-
-/*
- * -----------------------------------------------------------------
  * exported functions
  * -----------------------------------------------------------------
  */
@@ -54,7 +58,7 @@ SUNLinearSolver SUNLapackBand(N_Vector y, SUNMatrix A)
  * Function to create a new LAPACK band linear solver
  */
 
-SUNLinearSolver SUNLinSol_LapackBand(N_Vector y, SUNMatrix A)
+SUNLinearSolver SUNLinSol_LapackBand(N_Vector y, SUNMatrix A, SUNContext sunctx)
 {
   SUNLinearSolver S;
   SUNLinearSolverContent_LapackBand content;
@@ -75,7 +79,7 @@ SUNLinearSolver SUNLinSol_LapackBand(N_Vector y, SUNMatrix A)
 
   /* Create an empty linear solver */
   S = NULL;
-  S = SUNLinSolNewEmpty();
+  S = SUNLinSolNewEmpty(sunctx);
   if (S == NULL) return(NULL);
 
   /* Attach operations */
@@ -137,7 +141,7 @@ int SUNLinSolInitialize_LapackBand(SUNLinearSolver S)
 
 int SUNLinSolSetup_LapackBand(SUNLinearSolver S, SUNMatrix A)
 {
-  int n, ml, mu, ldim, ier;
+  sunindextype n, ml, mu, ldim, ier;
 
   /* check for valid inputs */
   if ( (A == NULL) || (S == NULL) )
@@ -150,14 +154,15 @@ int SUNLinSolSetup_LapackBand(SUNLinearSolver S, SUNMatrix A)
   }
 
   /* Call LAPACK to do LU factorization of A */
+  ier = 0;
   n = SUNBandMatrix_Rows(A);
   ml = SUNBandMatrix_LowerBandwidth(A);
   mu = SUNBandMatrix_UpperBandwidth(A);
   ldim = SUNBandMatrix_LDim(A);
   xgbtrf_f77(&n, &n, &ml, &mu, SUNBandMatrix_Data(A),
-	     &ldim, PIVOTS(S), &ier);
+             &ldim, PIVOTS(S), &ier);
 
-  LASTFLAG(S) = (long int) ier;
+  LASTFLAG(S) = ier;
   if (ier > 0)
     return(SUNLS_LUFACT_FAIL);
   if (ier < 0)
@@ -169,7 +174,7 @@ int SUNLinSolSetup_LapackBand(SUNLinearSolver S, SUNMatrix A)
 int SUNLinSolSolve_LapackBand(SUNLinearSolver S, SUNMatrix A, N_Vector x,
                               N_Vector b, realtype tol)
 {
-  int n, ml, mu, ldim, one, ier;
+  sunindextype n, ml, mu, ldim, one, ier;
   realtype *xdata;
 
   /* check for valid inputs */
@@ -187,14 +192,15 @@ int SUNLinSolSolve_LapackBand(SUNLinearSolver S, SUNMatrix A, N_Vector x,
   }
 
   /* Call LAPACK to solve the linear system */
+  ier = 0;
   n = SUNBandMatrix_Rows(A);
   ml = SUNBandMatrix_LowerBandwidth(A);
   mu = SUNBandMatrix_UpperBandwidth(A);
   ldim = SUNBandMatrix_LDim(A);
   one = 1;
   xgbtrs_f77("N", &n, &ml, &mu, &one, SUNBandMatrix_Data(A),
-	     &ldim, PIVOTS(S), xdata, &n, &ier, 1);
-  LASTFLAG(S) = (long int) ier;
+             &ldim, PIVOTS(S), xdata, &n, &ier);
+  LASTFLAG(S) = ier;
   if (ier < 0)
     return(SUNLS_PACKAGE_FAIL_UNREC);
 

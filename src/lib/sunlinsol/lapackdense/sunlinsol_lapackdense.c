@@ -3,7 +3,7 @@
  * Based on codes <solver>_lapack.c by: Radu Serban @ LLNL
  * -----------------------------------------------------------------
  * SUNDIALS Copyright Start
- * Copyright (c) 2002-2019, Lawrence Livermore National Security
+ * Copyright (c) 2002-2022, Lawrence Livermore National Security
  * and Southern Methodist University.
  * All rights reserved.
  *
@@ -22,6 +22,19 @@
 #include <sunlinsol/sunlinsol_lapackdense.h>
 #include <sundials/sundials_math.h>
 
+#include "sundials_lapack_defs.h"
+
+/* Interfaces to match 'realtype' with the correct LAPACK functions */
+#if defined(SUNDIALS_DOUBLE_PRECISION)
+#define xgetrf_f77    dgetrf_f77
+#define xgetrs_f77    dgetrs_f77
+#elif defined(SUNDIALS_SINGLE_PRECISION)
+#define xgetrf_f77    sgetrf_f77
+#define xgetrs_f77    sgetrs_f77
+#else
+#error  Incompatible realtype for LAPACK; disable LAPACK and rebuild
+#endif
+
 #define ZERO  RCONST(0.0)
 #define ONE   RCONST(1.0)
 
@@ -37,15 +50,6 @@
 
 /*
  * -----------------------------------------------------------------
- * deprecated wrapper functions
- * -----------------------------------------------------------------
- */
-
-SUNLinearSolver SUNLapackDense(N_Vector y, SUNMatrix A)
-{ return(SUNLinSol_LapackDense(y, A)); }
-
-/*
- * -----------------------------------------------------------------
  * exported functions
  * -----------------------------------------------------------------
  */
@@ -54,7 +58,7 @@ SUNLinearSolver SUNLapackDense(N_Vector y, SUNMatrix A)
  * Function to create a new LAPACK dense linear solver
  */
 
-SUNLinearSolver SUNLinSol_LapackDense(N_Vector y, SUNMatrix A)
+SUNLinearSolver SUNLinSol_LapackDense(N_Vector y, SUNMatrix A, SUNContext sunctx)
 {
   SUNLinearSolver S;
   SUNLinearSolverContent_LapackDense content;
@@ -75,7 +79,7 @@ SUNLinearSolver SUNLinSol_LapackDense(N_Vector y, SUNMatrix A)
 
   /* Create linear solver */
   S = NULL;
-  S = SUNLinSolNewEmpty();
+  S = SUNLinSolNewEmpty(sunctx);
   if (S == NULL) return(NULL);
 
   /* Attach operations */
@@ -137,7 +141,7 @@ int SUNLinSolInitialize_LapackDense(SUNLinearSolver S)
 
 int SUNLinSolSetup_LapackDense(SUNLinearSolver S, SUNMatrix A)
 {
-  int n, ier;
+  sunindextype n, ier;
 
   /* check for valid inputs */
   if ( (A == NULL) || (S == NULL) )
@@ -151,8 +155,9 @@ int SUNLinSolSetup_LapackDense(SUNLinearSolver S, SUNMatrix A)
 
   /* Call LAPACK to do LU factorization of A */
   n = SUNDenseMatrix_Rows(A);
+  ier = 0;
   xgetrf_f77(&n, &n, SUNDenseMatrix_Data(A), &n, PIVOTS(S), &ier);
-  LASTFLAG(S) = (long int) ier;
+  LASTFLAG(S) = ier;
   if (ier > 0)
     return(SUNLS_LUFACT_FAIL);
   if (ier < 0)
@@ -162,9 +167,9 @@ int SUNLinSolSetup_LapackDense(SUNLinearSolver S, SUNMatrix A)
 
 
 int SUNLinSolSolve_LapackDense(SUNLinearSolver S, SUNMatrix A, N_Vector x,
-                              N_Vector b, realtype tol)
+                               N_Vector b, realtype tol)
 {
-  int n, one, ier;
+  sunindextype n, one, ier;
   realtype *xdata;
 
   if ( (A == NULL) || (S == NULL) || (x == NULL) || (b == NULL) )
@@ -183,9 +188,10 @@ int SUNLinSolSolve_LapackDense(SUNLinearSolver S, SUNMatrix A, N_Vector x,
   /* Call LAPACK to solve the linear system */
   n = SUNDenseMatrix_Rows(A);
   one = 1;
+  ier = 0;
   xgetrs_f77("N", &n, &one, SUNDenseMatrix_Data(A),
-	     &n, PIVOTS(S), xdata, &n, &ier, 1);
-  LASTFLAG(S) = (long int) ier;
+             &n, PIVOTS(S), xdata, &n, &ier);
+  LASTFLAG(S) = ier;
   if (ier < 0)
     return(SUNLS_PACKAGE_FAIL_UNREC);
 
