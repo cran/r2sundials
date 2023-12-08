@@ -1,8 +1,8 @@
 Package: r2sundials
 Type: Package
 Title: Wrapper for 'SUNDIALS' Solving ODE and Sensitivity Problem
-Version: 6.5.0-3
-Date: 2023-03-21
+Version: 6.5.0-4
+Date: 2023-12-08
 Authors@R: c(
    person("Serguei", "Sokol", role=c("cre", "aut"), email="sokol@insa-toulouse.fr"),
    person("Carol S.", "Woodward", role="ctb"),
@@ -45,11 +45,11 @@ License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.0)
 LinkingTo: Rcpp, RcppArmadillo, rmumps (>= 5.2.1-6)
 Suggests: RcppXPtrUtils, slam, RUnit, deSolve, RcppArmadillo
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 NeedsCompilation: yes
 Biarch: FALSE
-Packaged: 2023-03-24 09:23:01 UTC; sokol
+Packaged: 2023-12-08 11:02:17 UTC; sokol
 Author: Serguei Sokol [cre, aut],
   Carol S. Woodward [ctb],
   Daniel R. Reynolds [ctb],
@@ -83,4 +83,4 @@ Author: Serguei Sokol [cre, aut],
   INRAE [cph],
   CNRS [cph]
 Repository: CRAN
-Date/Publication: 2023-03-24 10:20:02 UTC
+Date/Publication: 2023-12-08 13:40:02 UTC
