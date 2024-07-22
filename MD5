@@ -1,11 +1,11 @@
-bc500377ea5a3d3111f260379f74ff07 *DESCRIPTION
+7d439d4fd46aaaee9e3d7e3e795da60d *DESCRIPTION
 34bb78fa63ba6a742a8074a057917516 *NAMESPACE
-2cda20fd943237d7e44b2bc3c20d7fb0 *NEWS
+1365dd3f67fcb70e6a7e125870c3ab26 *NEWS
 e095b5f7253e3c327953e24ea3710511 *R/RcppExports.R
 f2abefc037666a3b13438a1564d356e1 *R/package.R
 23e76b04be2150afd6b225f05fe50112 *R/zzz.R
-f9c2e30b52018d68f97bfee6f38fa9a3 *build/partial.rdb
-821bb1e34b575af41a6d31d15e545b4f *cleanup
+23440cf2fc268896b423fb59cedac11a *build/partial.rdb
+7d2d5633bf1741dbbd4794f10bc9499f *cleanup
 23270a8368e0651d7199c8a3af9dfb04 *inst/CITATION
 67ed3ae917a99a2d8d1546822308342c *inst/COPYRIGHTS
 0b92cacfdf153b1331673f0fc0d17f86 *inst/cvodes.txt.in
@@ -35,7 +35,7 @@ cf10f6dd7369da0d2a62d916e5bb2451 *inst/include/nvector/nvector_sycl.h
 2f4a8067306458e6dd93b32d1546e932 *inst/include/nvector/nvector_trilinos.h
 53a1bbf89328c0cc5a6be785c9af8616 *inst/include/nvector/trilinos/SundialsTpetraVectorInterface.hpp
 f050ca5e350ab92a3b11aa09eb5c104e *inst/include/nvector/trilinos/SundialsTpetraVectorKernels.hpp
-b34d77466fc1074fb41db1f775c5e594 *inst/include/r2sundials.h
+75bb5889ec5aefca2663f1d59301b9fd *inst/include/r2sundials.h
 9d3b95521f926b87d97eab648ca5dc14 *inst/include/sundials/sundials_band.h
 e3966d53b1f023e4c3140f3cb745d73b *inst/include/sundials/sundials_base.hpp
 27c137cd171be786d13f82c1ea3eca36 *inst/include/sundials/sundials_config.h
@@ -111,7 +111,7 @@ b83a02cf5b22ccdf763cb8cfd548952f *inst/include/sunmatrix/sunmatrix_sparse.h
 0e18556206a049c906289e153636e669 *inst/include/sunnonlinsol/sunnonlinsol_fixedpoint.h
 f8bca4381a59dbe7ba8d21ad1ef6530d *inst/include/sunnonlinsol/sunnonlinsol_newton.h
 cf12e0797e2e7cf945e54a42163660c9 *inst/include/sunnonlinsol/sunnonlinsol_petscsnes.h
-f62087420421c6ff4e097316bf969d58 *inst/unitTests/runit.r2cvodes.R
+6f42c27a9a127dd4b359eef1b7fb7411 *inst/unitTests/runit.r2cvodes.R
 18182c1537fde6e5947a53ecb5c3d049 *man/get_cnst.Rd
 b8ca2fb46964f5b75100131970ac4935 *man/r2cvodes.Rd
 dea9949b1397da7d95dba5e8639b927e *man/r2sundials-package.Rd
@@ -278,6 +278,6 @@ a09f3d34f85690881326e89f69bb3c13 *src/lib/sunmatrix/magmadense/dense_hip_kernels
 812ecb724d1e43a62636f8f34b1c503b *src/lib/sunmatrix/sparse/sunmatrix_sparse.c
 72bf65d704cc5a59212f901e7dfd99e0 *src/lib/sunnonlinsol/fixedpoint/sunnonlinsol_fixedpoint.c
 b88d3e838dc9382c65ee14a6b25d116c *src/lib/sunnonlinsol/newton/sunnonlinsol_newton.c
-354beb160e7969ed853d6049f20e93e9 *src/r2sundials.cpp
+7b32b4b2ad032493ae22e2f08e341715 *src/r2sundials.cpp
 4ee513b5aa026fbaddc9b4c49e48f883 *src/sunlinsol_rmumps.cpp
 9d5347458c42ff1c5ff6a47d29beda40 *tests/RUnit.R
